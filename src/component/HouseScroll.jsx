@@ -5,7 +5,33 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
+const HouseScroll = () => {
+  const containerRef = useRef(null);
+  const [svgLoaded, setSvgLoaded] = useState(false);
+  const animationRef = useRef(null);
 
+  useEffect(() => {
+    const loadSVG = async () => {
+      try {
+        const response = await fetch("house.svg");
+        const svgText = await response.text();
+
+        if (containerRef.current) {
+          containerRef.current.innerHTML = svgText;
+
+          const svgElement = containerRef.current.querySelector("svg");
+          if (svgElement) {
+            svgElement.setAttribute("preserveAspectRatio", "xMidYMid slice");
+            requestAnimationFrame(() => setSvgLoaded(true));
+          }
+        }
+      } catch (error) {
+        console.error("error:", error);
+      }
+    };
+
+    loadSVG();
+  }, []);
 
   useGSAP(
     () => {
@@ -68,7 +94,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
         ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       };
     },
-    { scope: containerRef, dependencies: [svgLoaded] }
+    { scope: containerRef, dependencies: [svgLoaded] },
   );
 
   const handleButtonClick = (label) => {
