@@ -5,7 +5,7 @@ import React from "react";
 
 gsap.registerPlugin(useGSAP);
 
-const House = () => {
+const Building = () => {
   const containerRef = useRef(null);
   const [svgLoaded, setSvgLoaded] = useState(false);
   const animationRef = useRef(null);
