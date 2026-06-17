@@ -32,67 +32,6 @@ const House = () => {
     loadSVG();
   }, []);
 
-  useGSAP(
-    () => {
-      if (!svgLoaded) return;
-
-      const svg = containerRef.current.querySelector("svg");
-
-      if (svg) {
-        gsap.set(["#bathroom", "#bedroom", "#border"], { opacity: 0 });
-
-        gsap.set(["#border"], {
-          opacity: 0,
-          x: -200,
-        });
-
-        gsap.set(["#bathroom"], {
-          opacity: 0,
-          y: -200,
-        });
-      }
-
-      //   Animation
-      const runAnimation = gsap.timeline({ paused: true });
-
-      runAnimation
-        .addLabel("start")
-        .add([
-          gsap.to("#border", {
-            opacity: 1,
-            x: 0,
-            duration: 1.5,
-            ease: "power1.out",
-          }),
-        ])
-        .addLabel("border")
-        .add([
-          gsap.to("#bathroom", {
-            opacity: 1,
-            y: 0,
-            duration: 1.5,
-            ease: "power1.out",
-          }),
-        ])
-        .addLabel("bathroom");
-
-      animationRef.current = runAnimation;
-
-      return () => {
-        if (animationRef.current) {
-          animationRef.current.kill();
-        }
-      };
-    },
-    { scope: containerRef, dependencies: [svgLoaded] },
-  );
-
-  const handleButtonClick = (label) => {
-    if (animationRef.current) {
-      animationRef.current.tweenTo(label);
-    }
-  };
-
   return (
     <div>
       <div
