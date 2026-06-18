@@ -97,4 +97,38 @@ const HouseScroll = () => {
     { scope: containerRef, dependencies: [svgLoaded] },
   );
 
-  
+  const handleButtonClick = (label) => {
+    if (animationRef.current) {
+      animationRef.current.tweenTo(label);
+    }
+  };
+
+  return (
+    <div>
+      <div
+        ref={containerRef}
+        className="bg-gray-100 w-full [&>svg]:w-full h-screen [&>svg]:h-full [&>svg]:object-center overflow-hidden"
+      ></div>
+
+      {!svgLoaded && <div>Loading ...</div>}
+
+      <div className="top-20 left-6 z-50 fixed flex flex-col gap-3">
+        <button
+          className="bg-gray-800 hover:bg-gray-700 shadow-sm px-4 py-2 rounded-md text-white transition"
+          onClick={() => handleButtonClick("border")}
+        >
+          Border Animation
+        </button>
+
+        <button
+          className="bg-gray-800 hover:bg-gray-700 shadow-sm px-4 py-2 rounded-md text-white transition"
+          onClick={() => handleButtonClick("bathroom")}
+        >
+          Bathroom Animation
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default HouseScroll;
