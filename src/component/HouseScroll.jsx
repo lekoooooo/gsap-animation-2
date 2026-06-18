@@ -1,3 +1,8 @@
+import gsap from "gsap";
+import { useRef, useState, useEffect } from "react";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const HouseScroll = () => {
